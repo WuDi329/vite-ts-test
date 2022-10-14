@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { codec } from 'poco-codec'
-codec.decode()
+codec.decode("/bbb.mp4")
 
 defineProps<{ msg: string }>()
 

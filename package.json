@@ -8,5 +8,10 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "rollup": "^3.1.0",
+    "rollup-plugin-web-worker-loader": "^1.6.1",
+    "worker-loader": "^3.0.8"
+  }
 }

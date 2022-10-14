@@ -9,10 +9,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.2.37",
-    "poco-codec": "workspace:*"
+    "@types/dom-mediacapture-transform": "^0.1.3",
+    "@types/node": "^18.7.18",
+    "poco-codec": "workspace:*",
+    "vue": "^3.2.37"
   },
   "devDependencies": {
+    "@types/dom-webcodecs": "^0.1.4",
+    "@types/wicg-file-system-access": "^2020.9.5",
     "@vitejs/plugin-vue": "^3.1.0",
     "typescript": "^4.6.4",
     "vite": "^3.1.0",

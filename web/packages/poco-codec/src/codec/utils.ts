@@ -3,7 +3,7 @@ import {WebVideoDecoder} from './decoder'
 // import  'dom-webcodecs';
 
 export async function decode(location: string) {
-    let demuxer = new MP4Demuxer("./bbb.mp4");
+    let demuxer = new MP4Demuxer(location);
     let framecount: number = 0;
     let deocodeInit: VideoDecoderInit = {
         output : frame => {
