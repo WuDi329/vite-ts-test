@@ -21,3 +21,7 @@ export async function decode(location: string) {
         demuxer.start((chunk: EncodedVideoChunk) => { decoder.decode(chunk); })
       })
 } 
+
+export async function encode(){
+    
+}
