@@ -15,7 +15,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/dom-webcodecs": "^0.1.4",
-    "@types/node": "^18.7.18",
+    "@types/node": "^18.8.0",
     "@types/webrtc": "^0.0.33",
     "rollup-plugin-polyfill-node": "^0.10.2",
     "socket.io-client": "^4.5.2"

@@ -65,6 +65,7 @@ async function startRecording(fileHandle, frameStream, trackSettings) {
 }
 
 async function stopRecording() {
+  console.log("stop recording... in worker")
   await frameReader.cancel();
   await webmWriter.complete();
   fileWritableStream.close();
@@ -80,6 +81,7 @@ self.addEventListener('message', function(e) {
                           e.data.trackSettings);
       break;
     case "stop":
+      console.log("heard stop")
       stopRecording();
       break;
   }

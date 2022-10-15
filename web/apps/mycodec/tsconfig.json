@@ -13,7 +13,7 @@
     "lib": ["ESNext", "DOM"],
     "skipLibCheck": true,
     "typeRoots": ["./node_modules/@types"],
-    "types": ["wicg-file-system-access","dom-webcodecs","dom-mediacapture-transform"]
+    "types": ["wicg-file-system-access","dom-webcodecs","dom-mediacapture-transform","node"]
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
   "references": [{ "path": "./tsconfig.node.json" }],
