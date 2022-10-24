@@ -16,12 +16,14 @@ import helloworld from './components/HelloWorld.vue'
       <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
     </a>
 
-  </div>
-  <helloworld></helloworld>
-
-  <!-- <Suspense>
+    <Suspense>
       <encode />
-  </Suspense> -->
+  </Suspense>
+
+  </div>
+  <!-- <helloworld></helloworld> -->
+
+
 
 
 </template>

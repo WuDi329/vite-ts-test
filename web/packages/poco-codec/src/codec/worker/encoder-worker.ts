@@ -35,13 +35,13 @@ onmessage = async function (e) {
                         output: chunk => {
                             const data = new ArrayBuffer(chunk.byteLength);
                             chunk.copyTo(data);
-                            self.postMessage({
+                            self.postMessage({message: {
                                 type,
                                 timestamp: chunk.timestamp,
                                 duration: chunk.duration,
                                 is_key: msg.audio || chunk.type === 'key',
                                 data
-                            }, [data]);
+                            }, transferable: [data]});
                         },
                         error: inerror
                     });
@@ -86,13 +86,13 @@ onmessage = async function (e) {
                                 const d = i / 4;
                                 buf.set(new Uint8Array(bufs[Math.floor(d) % nc], Math.floor(d / nc) * 4, 4), i);
                             }
-                            self.postMessage({
+                            self.postMessage({message: {
                                 type,
                                 timestamp: result.value.timestamp,
                                 duration: result.value.duration,
                                 is_key: true,
                                 data
-                            }, [data]);
+                            }, transferable: [data]});
                         }
                     } else {
                         let keyFrame = false;

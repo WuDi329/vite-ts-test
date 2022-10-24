@@ -1,5 +1,5 @@
 import { defineConfig } from "rollup";
-import typescript from "@rollup/plugin-typescript";
+import typescript from "rollup-plugin-typescript2";
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs"
 import json from "@rollup/plugin-json"
@@ -7,7 +7,8 @@ import externals from "rollup-plugin-node-externals";
 // import strip from "@rollup/plugin-strip";
 import replace from "@rollup/plugin-replace";
 import nodePolyfills from "rollup-plugin-polyfill-node";
-import * as pkg from "./package.json";
+// import * as pkg from "./package.json";
+import webWorkerLoader from 'rollup-plugin-web-worker-loader';
 
 export default defineConfig({
     //input: "./src/index.ts",
@@ -20,7 +21,7 @@ export default defineConfig({
             file: "./dist/index.umd.js",
             format: "umd",
             sourcemap: true,
-            name: pkg.name,
+            name: "poco-codec",
             globals: {
                 "mp4box":"mp4box"
             }
@@ -48,12 +49,11 @@ export default defineConfig({
         json(),
         resolve(),
         nodePolyfills(),
+        webWorkerLoader(),
         commonjs({
             sourceMap: true
         }),
-        typescript({
-            sourceMap: true,
-        }),
+        typescript(),
         externals({
             devDeps: false,
         }),

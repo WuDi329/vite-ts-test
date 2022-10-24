@@ -20,28 +20,3 @@ export class WebVideoDecoder{
 
 }
 
-
-
-// let decoder = new VideoDecoder({
-//     output : frame => {
-//       ctx.drawImage(frame, 0, 0, offscreen.width, offscreen.height);
-
-//       // Close ASAP.
-//       frame.close();
-
-//       // Draw some optional stats.
-//       ctx.font = '35px sans-serif';
-//       ctx.fillStyle = "#ffffff";
-//       ctx.fillText(getFrameStats(), 40, 40, offscreen.width);
-//     },
-//     error : e => console.error(e),
-//   });
-
-//   demuxer.getConfig().then((config) => {
-//     offscreen.height = config.codedHeight;
-//     offscreen.width = config.codedWidth;
-
-//     decoder.configure(config);
-//     demuxer.start((chunk) => { decoder.decode(chunk); })
-//   });
-// })

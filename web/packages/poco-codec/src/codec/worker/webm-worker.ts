@@ -364,7 +364,7 @@ onmessage = function (e) {
 
                     ///forward the message about muxed-data
                     case 'muxed-data':
-                        self.postMessage(msg2, [msg2.data]);
+                        self.postMessage({message: msg2, transferable: [msg2.data]});
                         break;
 
                     ///forward the message about stats
@@ -373,7 +373,7 @@ onmessage = function (e) {
                         break;
                     //?
                     default:
-                        self.postMessage(msg2, msg2.transfer);
+                        self.postMessage({message: msg2, transferable: msg2.transfer});
                         break;
                 }
             };
