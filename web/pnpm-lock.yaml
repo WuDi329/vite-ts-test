@@ -1,4 +1,4 @@
-lockfileVersion: 5.4
+lockfileVersion: 5.3
 
 importers:
 
@@ -54,7 +54,7 @@ importers:
       '@rollup/plugin-node-resolve': 15.0.0_rollup@2.79.1
       '@rollup/plugin-replace': 5.0.0_rollup@2.79.1
       '@rollup/plugin-strip': 3.0.0_rollup@2.79.1
-      '@rollup/plugin-typescript': 9.0.1_hafrwlgfjmvsm7253l3bfjzhnq
+      '@rollup/plugin-typescript': 9.0.1_380b1b2cc54b2b267f5ddaf612a7276c
       '@types/dom-mediacapture-transform': 0.1.3
       mp4box: 0.5.2
       rollup: 2.79.1
@@ -66,7 +66,7 @@ importers:
       '@types/webrtc': 0.0.33
       '@types/wicg-file-system-access': 2020.9.5
       rollup-plugin-polyfill-node: 0.10.2_rollup@2.79.1
-      rollup-plugin-typescript2: 0.34.1_gypgyaqhine6mwjfvh7icfhviq
+      rollup-plugin-typescript2: 0.34.1_rollup@2.79.1+typescript@4.8.4
       rollup-plugin-web-worker-loader: 1.6.1_rollup@2.79.1
       socket.io-client: 4.5.2
 
@@ -202,7 +202,7 @@ packages:
       rollup: 2.79.1
     dev: false
 
-  /@rollup/plugin-typescript/9.0.1_hafrwlgfjmvsm7253l3bfjzhnq:
+  /@rollup/plugin-typescript/9.0.1_380b1b2cc54b2b267f5ddaf612a7276c:
     resolution: {integrity: sha512-fj+CTk8+HvFCEwwDQdNgWd0lIJVXtMQ0Z3vH/ZgzFSbK2s1zs5wjZrjzrhViTTN+UF49+P69/tybgKRdGHpj/Q==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -919,7 +919,7 @@ packages:
       rollup: 2.79.1
     dev: true
 
-  /rollup-plugin-typescript2/0.34.1_gypgyaqhine6mwjfvh7icfhviq:
+  /rollup-plugin-typescript2/0.34.1_rollup@2.79.1+typescript@4.8.4:
     resolution: {integrity: sha512-P4cHLtGikESmqi1CA+tdMDUv8WbQV48mzPYt77TSTOPJpERyZ9TXdDgjSDix8Fkqce6soYz3+fa4lrC93IEkcw==}
     peerDependencies:
       rollup: '>=1.26.3'

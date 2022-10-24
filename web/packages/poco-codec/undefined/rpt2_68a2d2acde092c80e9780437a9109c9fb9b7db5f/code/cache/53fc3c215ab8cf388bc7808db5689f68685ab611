@@ -1,1 +1,0 @@
-{"code":"import * as codec from \"./codec\";\r\nexport { codec };\r\n","references":["/home/wudi/desktop/code/ts/vue3/vite-ts-test/web/packages/poco-codec/src/codec/index.ts"]}
