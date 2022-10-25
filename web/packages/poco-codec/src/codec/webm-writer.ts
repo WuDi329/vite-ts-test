@@ -2,7 +2,7 @@
 // Requires https://github.com/muaz-khan/RecordRTC/blob/master/libs/EBML.js
 // EBML.js copyright goes to: https://github.com/legokichi/ts-ebml
 
-import {EBML} from './external-js/EBML.js'
+import './EBML/index.js'
 
 export class WebMWriter {
     reader: any;

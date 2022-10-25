@@ -1,5 +1,5 @@
 //error：ts中已经存在onerror了
-function inerror(e: Error) {
+export function inerror(e: Error) {
     console.error(e);
     self.postMessage({
         type: 'error',

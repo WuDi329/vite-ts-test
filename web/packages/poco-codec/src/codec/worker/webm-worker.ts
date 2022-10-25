@@ -38,7 +38,8 @@ let queued_audio: any[] = [];
 let num_timestamp_mismatch_warnings = 0;
 
 //这里给了data any属性
-function send_data(data: any) {
+//为了解决module问题，这里加了export
+export function send_data(data: any) {
     webm_muxer.postMessage({
         type: 'stream-data',
         data
