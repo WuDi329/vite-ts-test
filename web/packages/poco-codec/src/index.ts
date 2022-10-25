@@ -1,3 +1,2 @@
-import * as codec from "./codec"
-
-export { codec };
+export * from './other';
+export * from './worker';

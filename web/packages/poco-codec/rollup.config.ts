@@ -1,14 +1,15 @@
 import { defineConfig } from "rollup";
-import typescript from "rollup-plugin-typescript2";
+import typescript from "@rollup/plugin-typescript";
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs"
 import json from "@rollup/plugin-json"
 import externals from "rollup-plugin-node-externals";
 // import strip from "@rollup/plugin-strip";
 import replace from "@rollup/plugin-replace";
+import babel from "@rollup/plugin-babel";
 import nodePolyfills from "rollup-plugin-polyfill-node";
 // import * as pkg from "./package.json";
-import webWorkerLoader from 'rollup-plugin-web-worker-loader';
+// import webWorkerLoader from 'rollup-plugin-web-worker-loader';
 
 export default defineConfig({
     //input: "./src/index.ts",
@@ -49,18 +50,21 @@ export default defineConfig({
         json(),
         resolve(),
         nodePolyfills(),
-        webWorkerLoader(),
+        // webWorkerLoader(),
         commonjs({
             sourceMap: true
         }),
-        typescript(),
+        typescript({
+            sourceMap: true,
+        }),
         externals({
             devDeps: false,
         }),
         replace({
             preventAssignment: true,
             __PROTOCOL_VERSION__: JSON.stringify("poco-0.1")
-        })
+        }),
+        babel({ babelHelpers: "bundled" }),
     ],
     watch: {
         exclude: "node_modules/**",
