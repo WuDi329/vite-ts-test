@@ -8,7 +8,7 @@ import externals from "rollup-plugin-node-externals";
 import replace from "@rollup/plugin-replace";
 import babel from "@rollup/plugin-babel";
 import nodePolyfills from "rollup-plugin-polyfill-node";
-// import * as pkg from "./package.json";
+import * as pkg from "./package.json";
 // import webWorkerLoader from 'rollup-plugin-web-worker-loader';
 
 export default defineConfig({
@@ -22,7 +22,7 @@ export default defineConfig({
             file: "./dist/index.umd.js",
             format: "umd",
             sourcemap: true,
-            name: "poco-codec",
+            name: pkg.name,
             globals: {
                 "mp4box":"mp4box"
             }
@@ -45,7 +45,6 @@ export default defineConfig({
             }
         }
     ],
-    // external: ['mp4box','webcodecs'],
     plugins: [
         json(),
         resolve(),
@@ -56,6 +55,7 @@ export default defineConfig({
         }),
         typescript({
             sourceMap: true,
+            resolveJsonModule: true
         }),
         externals({
             devDeps: false,
