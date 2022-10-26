@@ -28,7 +28,7 @@
 <script  lang="ts">
 import { getCurrentInstance, ref } from 'vue'
 import {onMounted} from 'vue'
-import { codec } from 'poco-codec'
+// import { transcode } from 'poco-codec'
 
 export default{
 
