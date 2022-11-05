@@ -3,8 +3,7 @@
 
 // importScripts('./mp4_demuxer.js');
 
-//不确定这种import方式能不能work，确实不work
-// import { WebMWriter } from './webm-writer.js';
+
 // importScripts('./webm-writer.js')
 
 // let lastMediaTimeCapturePoint = 0;
@@ -33,6 +32,7 @@ const video_Worker = new Worker(new URL("../worker/video_transcoder.ts", import.
 const audio_Worker = new Worker(new URL("../worker/audio_transcoder.ts", import.meta.url), {
     type: "module"
 })
+
 video_Worker.onmessage = passdata
 video_Worker.onerror = er => console.error(er);
 
@@ -133,3 +133,5 @@ self.addEventListener('message', async function(e: MessageEvent) {
       console.error(`Worker bad message: ${e.data}`);
   }
 })
+
+export default 0;
