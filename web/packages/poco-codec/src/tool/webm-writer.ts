@@ -10,7 +10,7 @@ export class WebMWriter {
     handle: FileSystemFileHandle | undefined;
     name: string | undefined;
     writable: FileSystemWritableFileStream | undefined;
-    size: any;
+    size: number = 0;
     chunks: any;
     duration: any;
     options: any;
@@ -24,7 +24,7 @@ export class WebMWriter {
         };
     }
 
-    async start(suggestedName: string) {
+    async start(suggestedName?: string) {
         if (suggestedName) {
             this.handle = await window.showSaveFilePicker({
                 suggestedName,
