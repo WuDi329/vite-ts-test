@@ -76,6 +76,8 @@ export class MP4Source {
     this.file.start();
   }
 
+  //这里必须要用track_id和ref接收，所以使用了ts-ignore
+  //@ts-ignore
   onSamples(track_id: number, ref: any, samples: MP4Sample[]) {
     for (const sample of samples) {
       const type = sample.is_sync ? "key" : "delta";

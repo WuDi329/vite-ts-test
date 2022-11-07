@@ -1,6 +1,7 @@
 import {MP4Demuxer} from './type'
 import {WebVideoDecoder} from './decoder'
-import {beginEncode} from './encode'
+import {transcodeDemo} from '../tool/demo'
+// import {beginEncode} from './encode'
 
 // import  'dom-webcodecs';
 
@@ -32,11 +33,12 @@ export async function decode(location: string) {
     })
 } 
 
-export async function encode(mediaStream: MediaStream){
-    beginEncode(mediaStream)
-}
+// export async function encode(mediaStream: MediaStream){
+//     beginEncode(mediaStream)
+// }
 
 export function transcode(location: string){
-    decode(location);
-    encode(mediaStream);
+    console.log(location);
+   transcodeDemo();
+    // encode(mediaStream);
 }

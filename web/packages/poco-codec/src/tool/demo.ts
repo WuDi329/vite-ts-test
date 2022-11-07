@@ -3,6 +3,8 @@ import { WebMWriter } from "./webm-writer";
 
 //dom操作元素
 //   window.$ = document.querySelector.bind(document);
+
+export async function transcodeDemo(){
   const demuxDecodeWorker: Worker = new Worker(new URL("../worker/demux_decode_worker.ts", import.meta.url), {
     type: "module"
   });
@@ -38,7 +40,8 @@ import { WebMWriter } from "./webm-writer";
       //这里使用无名式的初始化方法
       await writer.start();
       console.log('writer open over')
-      myAudioContext.initialize();
+      //audiotext应该是播放的时候，校准时间的，这里似乎用处不大，先注释
+      // myAudioContext.initialize();
     // audioController.initialize(e.data.sampleRate, e.data.channelCount,
     //                     e.data.sharedArrayBuffer);
       initResolver!();
@@ -150,3 +153,4 @@ webm_worker.onmessage = async ev => {
             break;
     }
 };
+}

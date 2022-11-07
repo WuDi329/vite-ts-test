@@ -10,7 +10,8 @@ import { WebmMuxer } from '../tool/webm_muxer';
 import { SampleLock } from '../tool/SampleLock'
 import  {AUDIO_STREAM_TYPE, ENCODER_QUEUE_SIZE_MAX, debugLog} from '../tool/type'
 
-importScripts('../external-js/mp4box.all.min.js');
+//importScripts在ts环境中不适用，因此先注释，看看会出什么问题再解决
+// self.importScripts('../external-js/mp4box.all.min.js');
 
 
 var frameCount = 0;
@@ -27,10 +28,10 @@ onmessage = async function (e) {
   switch (msg.type) {
     case 'initialize':
       console.log('audio transcoder: case initialize is triggered');
-      let demuxer = await import('../tool/mp4_demuxer');
-      let audioDemuxer =  new demuxer.MP4PullDemuxer('./bbb_audio_aac_frag.mp4');
-      let WebmMuxer = await import ('../tool/webm_muxer');
-      let muxer = new WebmMuxer.WebmMuxer();
+      // let demuxer = await import('../tool/mp4_demuxer');
+      let audioDemuxer =  new MP4PullDemuxer('/bbb_audio_aac_frag.mp4');
+      // console.log('finish audioDemuxer');
+      let muxer = new WebmMuxer();
       //这里可能要重写
       //将提取出几个config的方法单独挪出来，直接将config传入initialize
       console.log('audio_worker: waiting for encodeconfig')
@@ -72,6 +73,7 @@ class AudioTranscoder {
   channelCount: number = 0;
   muxer: WebmMuxer|undefined;
   async initialize(demuxer: MP4PullDemuxer, muxer: WebmMuxer) {
+    // console.log('into audiotranscoder init')
     this.fillInProgress = false;
     this.lock = new SampleLock();
     this.demuxer = demuxer;
@@ -80,7 +82,8 @@ class AudioTranscoder {
 
     // console.log('audiotranscoder ready for initialize demuxer')
     await this.demuxer.initialize(AUDIO_STREAM_TYPE);
-    // console.log('audiotranscoder finish initialize demuxer')
+    console.log('audiotranscoder finish initialize demuxer')
+
 
     this.decoder = new AudioDecoder({
       output: this.bufferAudioData.bind(this),
@@ -203,12 +206,14 @@ class AudioTranscoder {
 
     const data = new ArrayBuffer(chunk.byteLength);
     chunk.copyTo(data);
+    //这里是有插件冲突，报错：(message: any, targetOrigin: string, transfer?: Transferable[] | undefined)
     self.postMessage({
       type: 'audio-data',
       timestamp: chunk.timestamp,
       duration: chunk.duration,
       is_key: true,
       data
+        //@ts-ignore
     }, [data])
 
     await this.lock!.status;

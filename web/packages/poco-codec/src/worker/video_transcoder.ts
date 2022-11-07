@@ -8,7 +8,8 @@ import { SampleLock } from '../tool/SampleLock'
 
 import { DECODER_QUEUE_SIZE_MAX, VIDEO_STREAM_TYPE, debugLog } from '../tool/type'
 
-importScripts('../external-js/mp4box.all.min.js');
+//importScripts在ts环境中不适用，因此先注释，看看会出什么问题再解决
+// self.importScripts('../external-js/mp4box.all.min.js');
 
 // const VIDEO_STREAM_TYPE = 1;
 // const AUDIO_STREAM_TYPE = 0;
@@ -36,10 +37,10 @@ onmessage = async function (e) {
   switch (msg.type) {
     case 'initialize':
       console.log('video transcoder: case initialize is triggered');
-      let demuxer = await import('../tool/mp4_demuxer');
-      let videoDemuxer =  new demuxer.MP4PullDemuxer('./bbb_video_avc_frag.mp4');
-      let WebmMuxer = await import ('../tool/webm_muxer');
-      let muxer = new WebmMuxer.WebmMuxer();
+      let videoDemuxer =  new MP4PullDemuxer('/bbb_video_avc_frag.mp4');
+      console.log('finish videoDemuxer')
+      let muxer = new WebmMuxer();
+      console.log('finish videoWebmMuxer')
       //这里可能要重写
       //将提取出几个config的方法单独挪出来，直接将config传入initialize
       const encodeconfig = await videoTranscoder.initialize(videoDemuxer, muxer);
@@ -87,6 +88,7 @@ class VideoTranscoder {
   
   // init_resolver: null|undefined;
   async initialize(demuxer: MP4PullDemuxer, muxer: WebmMuxer) {
+    // console.log('into videotranscoder init')
     //frameBuffer其实也已经没有用了，这里注释
     // this.frameBuffer = [];
     //是否在fillinprogress，默认是false
@@ -101,6 +103,8 @@ class VideoTranscoder {
     //根据VIDEO_STREAM_TYPE进行初始化，这里进行了demuxer的初始化
     
     await this.demuxer?.initialize(VIDEO_STREAM_TYPE);
+    console.log('videotranscoder finish initialize demuxer')
+
     const decodeconfig = this.demuxer?.getDecoderConfig();
     const encodeconfig = await this.muxer?.getEncoderConfig();
     // console.log(decodeconfig);
@@ -210,6 +214,7 @@ class VideoTranscoder {
     // console.log(chunk);
     const data = new ArrayBuffer(chunk.byteLength);
     chunk.copyTo(data);
+    //这里是有插件冲突，报错：(message: any, targetOrigin: string, transfer?: Transferable[] | undefined)
     self.postMessage({
       //这里要注意，后面会用type来替代
       type: 'video-data',
@@ -217,6 +222,7 @@ class VideoTranscoder {
       duration: chunk.duration,
       is_key: chunk.type === 'key',
       data
+      //@ts-ignore
     }, [data]);
 
     

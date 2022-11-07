@@ -39,6 +39,7 @@ export class MP4PullDemuxer extends PullDemuxerBase {
     // console.log(this.fileUri)
     this.source = new MP4Source(this.fileUri);
     // console.log(streamType);
+    console.log(this.fileUri+'finish init source')
 
     this.readySamples = [];
     this.over = false;
@@ -50,7 +51,9 @@ export class MP4PullDemuxer extends PullDemuxerBase {
     //   console.log('audio ready for tracks')
 
     //不管是videotrack还是audiotrack都ready了
+    console.log(this.fileUri+'begin tracks ready')
     await this._tracksReady();
+    console.log(this.fileUri+'finish tracks ready')
 
     // if(streamType === 0)
     //   console.log('audio finished tracks')
@@ -119,7 +122,9 @@ export class MP4PullDemuxer extends PullDemuxerBase {
   }
 
   async _tracksReady() {
-    let info = await this.source?.getInfo();
+    console.log(this.source)
+    let info = await this.source!.getInfo();
+    console.log(this.source+'finish get info')
     this.videoTrack = info?.videoTracks[0];
     this.audioTrack = info?.audioTracks[0];
   }
@@ -195,18 +200,22 @@ class MP4Source {
   _info_resolver: any;
   _onSamples: any;
   constructor(uri: string) {
+    // console.log('in MP4Source')
+    console.log(uri)
+    console.log(createFile)
 
     this.file = createFile();
-    console.log('uri')
+    console.log('finish create file')
+    // console.log('uri')
     // console.log(uri)
     this.file.onError = console.error.bind(console);
     this.file.onReady = this.onReady.bind(this);
     this.file.onSamples = this.onSamples.bind(this);
 
 
-    debugLog('fetching file');
+    console.log('fetching file');
     fetch(uri).then(response => {
-      debugLog('fetch responded');
+      // console.log('fetch responded'+uri);
       const reader = response.body?.getReader();
       let offset = 0;
       let mp4File = this.file;
@@ -229,6 +238,8 @@ class MP4Source {
 
       return reader?.read().then(appendBuffers);
     })
+
+    console.log('after fetch'+uri)
 
     this.info = null;
     this._info_resolver = null;
@@ -298,6 +309,7 @@ class MP4Source {
   }
 
   //onsamples重写了，之前在这里构建encodedVideoChunk，这里调用_onSamples
+  //@ts-ignore
   onSamples(track_id: number, ref: any, samples: MP4Sample[]) {
     // debugger;
     // for (const sample of samples) {
@@ -323,6 +335,8 @@ function debugLog(msg: string) {
   console.debug(msg);
 }
 
+//目前没用，但是后面可能会有用，因此，这里先ts-ignore
+//@ts-ignore
 class Writer {
   data: Uint8Array;
   idx: number;

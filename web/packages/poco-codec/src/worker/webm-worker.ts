@@ -280,7 +280,7 @@ function send_metadata(metadata: any) {
 onmessage = function (e) {
     const msg = e.data;
     switch (msg.type) {
-        case ' ':
+        case 'video-data':
             if (metadata.video) {
                 if (first_video_timestamp === null) {
                     first_video_timestamp = msg.timestamp;
@@ -340,7 +340,10 @@ onmessage = function (e) {
             }
 
             //new webm-muxer.js
-            webm_muxer = new Worker('./webm-muxer.js');
+            webm_muxer = new Worker(new URL("../external-js/webm-muxer.js", import.meta.url), {
+                type: "module"
+            });
+
             webm_muxer.onerror = aterror;
 
             //listen to webm-muxer.js
@@ -349,32 +352,37 @@ onmessage = function (e) {
                 switch (msg2.type) {
                     //main thread msg:type=start
                     case 'ready':
+                        console.log('webm-worker: cast ready is triggered')
                         webm_muxer.postMessage(msg);
                         break;
 
                     //send data to webm-muxer msg:stream-data
                     case 'start-stream':
+                        console.log('webm-worker: cast start-stream is triggered')
                         send_metadata(metadata);
                         break;
 
                     //forward the message about exit
                     case 'exit':
+                        console.log('webm-worker: cast terminate is triggered')
                         webm_muxer.terminate();
                         self.postMessage(msg2);
                         break;
 
                     ///forward the message about muxed-data
                     case 'muxed-data':
-                        self.postMessage({message: msg2, transferable: [msg2.data]});
+                        console.log('webm-worker: get muxed data from webm-muxer')
+                        self.postMessage(msg2, [msg2.data]);
                         break;
 
                     ///forward the message about stats
                     case 'stats':
+                        console.log('webm-worker: case stat is triggered')
                         self.postMessage(msg2);
                         break;
                     //?
                     default:
-                        self.postMessage({message: msg2, transferable: msg2.transfer});
+                        self.postMessage(msg2, msg2.transfer);
                         break;
                 }
             };

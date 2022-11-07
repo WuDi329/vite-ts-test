@@ -82,6 +82,8 @@ function passdata(ev: MessageEvent){
       }
       break;
     default:
+      //这里是有插件冲突，报错：(message: any, targetOrigin: string, transfer?: Transferable[] | undefined)
+      //@ts-ignore
       self.postMessage(msg, [msg.data])
       break;
   }
@@ -130,7 +132,9 @@ self.addEventListener('message', async function(e: MessageEvent) {
       })
       break;
     default:
+      console.log(e.data)
       console.error(`Worker bad message: ${e.data}`);
+      break;
   }
 })
 

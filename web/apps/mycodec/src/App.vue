@@ -2,6 +2,7 @@
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 // import HelloWorld from './components/HelloWorld.vue'
+import { transcode } from 'poco-codec';
 import encode from './components/Encode.vue'
 import helloworld from './components/HelloWorld.vue'
 // import HelloWorld from './components/HelloWorld.vue';
@@ -19,7 +20,7 @@ import helloworld from './components/HelloWorld.vue'
     <!-- <Suspense>
       <encode />
   </Suspense> -->
-  <helloworld></helloworld>
+  <transcode></transcode>
 
 
   </div>
